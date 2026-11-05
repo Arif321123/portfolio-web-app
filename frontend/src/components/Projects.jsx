@@ -34,7 +34,7 @@ function Projects() {
 
         <div className="projects-grid">
           {projects.map((project, index) => {
-            const technologies = project.technologies
+            const technologies = (project.technologies || "")
               .split(",")
               .map((technology) => technology.trim())
               .filter(Boolean);

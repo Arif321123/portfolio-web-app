@@ -13,12 +13,39 @@ function Contact() {
   });
 
   const [status, setStatus] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     getProfile()
       .then((data) => setProfile(data[0] || null))
       .catch((error) => console.error("Profile API error:", error));
   }, []);
+async function handleSubmit(event) {
+  event.preventDefault();
+
+  if (isSubmitting) return;
+
+  setIsSubmitting(true);
+  setStatus("Sending...");
+
+  try {
+    await sendContactMessage(formData);
+
+    setStatus("Message sent successfully!");
+
+    setFormData({
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
+    });
+  } catch (error) {
+    console.error("Contact API error:", error);
+    setStatus("Failed to send message. Please try again.");
+  } finally {
+    setIsSubmitting(false);
+  }
+}
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -27,27 +54,6 @@ function Contact() {
       ...previous,
       [name]: value,
     }));
-  }
-
-  async function handleSubmit(event) {
-    event.preventDefault();
-    setStatus("Sending...");
-
-    try {
-      await sendContactMessage(formData);
-
-      setStatus("Message sent successfully!");
-
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-      });
-    } catch (error) {
-      console.error("Contact API error:", error);
-      setStatus("Failed to send message. Please try again.");
-    }
   }
 
   return (
@@ -149,10 +155,9 @@ function Contact() {
               required
             />
 
-            <button type="submit">
-              Send Message
-            </button>
-
+            <button type="submit" disabled={isSubmitting}>
+  {isSubmitting ? "Sending..." : "Send Message"}
+</button>
             {status && <p>{status}</p>}
 
           </form>

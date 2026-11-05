@@ -1,1 +1,13 @@
 cleanup_backup/
+
+# Sensitive files
+token.txt
+
+# Frontend generated files
+frontend/node_modules/
+frontend/dist/
+
+# Environment files
+.env
+.env.*
+!.env.example
