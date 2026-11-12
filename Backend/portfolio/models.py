@@ -39,6 +39,11 @@ class Project(models.Model):
     )
     github_url = models.URLField(blank=True)
     demo_url = models.URLField(blank=True)
+    image = models.ImageField(
+        upload_to="projects/",
+        blank=True,
+        null=True
+    )
     order = models.PositiveIntegerField(default=0)
 
     class Meta:

@@ -25,7 +25,7 @@ class SkillAdmin(admin.ModelAdmin):
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ("title", "project_type", "order")
+    list_display = ("title", "project_type","image", "order")
     list_editable = ("order",)
     ordering = ("order",)
 
