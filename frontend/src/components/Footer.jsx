@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { getProfile } from "../api";
-
+const CURRENT_YEAR = new Date().getFullYear();
 function Footer() {
   const [profile, setProfile] = useState(null);
-
   useEffect(() => {
     getProfile()
       .then((data) => setProfile(data[0] || null))
@@ -28,7 +27,7 @@ function Footer() {
           <a href="#skills">Skills</a>
           <a href="#projects">Projects</a>
           <a href="#experience">Experience</a>
-          <a href="#education">Education</a>
+	          <a href="#education">Education</a>
           <a href="#certifications">Certifications</a>
           <a href="#contact">Contact</a>
         </div>
@@ -57,7 +56,7 @@ function Footer() {
 
         <div className="footer-bottom">
           <p>
-            © {new Date().getFullYear()} Arif Balvar. All rights reserved.
+           © {CURRENT_YEAR} Arif Balvar. All rights reserved.
           </p>
 
           <a href="#home">Back to top ↑</a>

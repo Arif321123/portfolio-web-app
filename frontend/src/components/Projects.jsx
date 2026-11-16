@@ -50,7 +50,19 @@ function Projects() {
                     {project.project_type}
                   </span>
                 </div>
-
+	<div className="project-image">
+  {project.image ? (
+    <img
+      src={project.image}
+      alt={`${project.title} preview`}
+    />
+  ) : (
+    <div className="project-image-placeholder">
+      <span>PROJECT PREVIEW</span>
+      <h3>{project.title}</h3>
+    </div>
+  )}
+</div>
                 <h3>{project.title}</h3>
 
                 <p className="project-description">

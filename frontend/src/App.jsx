@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import "./App.css";
 
@@ -17,6 +18,23 @@ import Education from "./components/Education";
 function App() {
   const [profile, setProfile] = useState(null);
 
+  // Dark theme by default
+  const [theme, setTheme] = useState(
+    () => localStorage.getItem("portfolio-theme") || "dark"
+  );
+
+  // Save selected theme
+  useEffect(() => {
+    localStorage.setItem("portfolio-theme", theme);
+  }, [theme]);
+
+  // Switch between dark and light
+  const toggleTheme = () => {
+    setTheme((currentTheme) =>
+      currentTheme === "dark" ? "light" : "dark"
+    );
+  };
+
   useEffect(() => {
     getProfile()
       .then((data) => {
@@ -28,8 +46,8 @@ function App() {
   }, []);
 
   return (
-    <div className="app">
-      <Navbar />
+    <div className="app" data-theme={theme}>
+      <Navbar theme={theme} onToggleTheme={toggleTheme} />
       <Hero profile={profile} />
       <About profile={profile} />
       <Skills />

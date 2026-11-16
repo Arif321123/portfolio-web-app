@@ -1,7 +1,20 @@
+
 import { useEffect, useState } from "react";
 import { getSkills } from "../api";
 
+
+
 function Skills() {
+const skillImages = {
+  python: "/skill-icons/python.png",
+  django: "/skill-icons/django.png",
+  "django rest framework": "/skill-icons/django-rest-framework.png",
+  react: "/skill-icons/react.png",
+  "sql / sqlite": "/skill-icons/sql-sqlite.png",
+  "git & github": "/skill-icons/git-github.png",
+  linux: "/skill-icons/linux.png",
+  networking: "/skill-icons/networking.png",
+};
   const [skills, setSkills] = useState([]);
 
   useEffect(() => {
@@ -17,7 +30,6 @@ function Skills() {
   return (
     <section className="skills" id="skills">
       <div className="skills-container">
-
         <div className="skills-heading">
           <p className="section-label">MY SKILLS</p>
 
@@ -32,25 +44,34 @@ function Skills() {
         </div>
 
         <div className="skills-grid">
-          {skills.map((skill) => (
-            <div className="skill-card" key={skill.id}>
+          {skills.map((skill) => {
+            const imagePath =
+              skillImages[skill.name.trim().toLowerCase()];
 
-              <div className="skill-icon">
-                {skill.name.charAt(0)}
+            return (
+              <div className="skill-card" key={skill.id}>
+                <div className="skill-icon">
+                  {imagePath ? (
+                    <img
+                      src={imagePath}
+                      alt={`${skill.name} logo`}
+                    />
+                  ) : (
+                    <span>{skill.name.charAt(0)}</span>
+                  )}
+                </div>
+
+                <h3>{skill.name}</h3>
+
+                <span className="skill-level">
+                  {skill.level}
+                </span>
+
+                <p>{skill.description}</p>
               </div>
-
-              <h3>{skill.name}</h3>
-
-              <span className="skill-level">
-                {skill.level}
-              </span>
-
-              <p>{skill.description}</p>
-
-            </div>
-          ))}
+            );
+          })}
         </div>
-
       </div>
     </section>
   );

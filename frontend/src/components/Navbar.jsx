@@ -1,6 +1,7 @@
+
 import { useState } from "react";
 
-function Navbar() {
+function Navbar({ theme, onToggleTheme }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const closeMenu = () => setMenuOpen(false);
@@ -23,8 +24,16 @@ function Navbar() {
           <a href="#certifications" onClick={closeMenu}>Certifications</a>
           <a href="#contact" onClick={closeMenu}>Contact</a>
         </div>
+	<button
+  className="theme-toggle"
+  onClick={onToggleTheme}
+  aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+  title={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+>
+  {theme === "dark" ? "☀" : "☾"}
+</button>
 
-        <a className="talk-button" href="#contact" onClick={closeMenu}>
+                <a className="talk-button" href="#contact" onClick={closeMenu}>
           Let's Talk
         </a>
 
